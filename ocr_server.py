@@ -6,7 +6,7 @@ import json
 import ddddocr
 from flask import Flask, request
 
-parser = argparse.ArgumentParser(description="使用ddddocr搭建的最简api服务")
+parser = argparse.ArgumentParser(description="")
 parser.add_argument("-p", "--port", type=int, default=9898)
 parser.add_argument("--ocr", action="store_true", help="开启ocr识别")
 parser.add_argument("--old", action="store_true", help="OCR是否启动旧模型")
@@ -93,7 +93,7 @@ def set_ret(result, ret_type='text'):
 
 @app.route('/<opt>/<img_type>', methods=['POST'])
 @app.route('/<opt>/<img_type>/<ret_type>', methods=['POST'])
-def ocr(opt, img_type='file', ret_type='text'):
+def ocr(opt, img_type='file', ret_type='json'):
     try:
         img = get_img(request, img_type)
         if opt == 'ocr':
@@ -108,7 +108,7 @@ def ocr(opt, img_type='file', ret_type='text'):
 
 @app.route('/slide/<algo_type>/<img_type>', methods=['POST'])
 @app.route('/slide/<algo_type>/<img_type>/<ret_type>', methods=['POST'])
-def slide(algo_type='compare', img_type='file', ret_type='text'):
+def slide(algo_type='compare', img_type='file', ret_type='json'):
     try:
         target_img = get_img(request, img_type, 'target_img')
         bg_img = get_img(request, img_type, 'bg_img')
